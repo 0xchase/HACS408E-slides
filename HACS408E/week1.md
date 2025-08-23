@@ -8,9 +8,15 @@ imageText: Week 1
 imageCaption: Introduction to HCI
 frameGradient: bg-gradient-to-r from-green-500 to-blue-600
 imageGradient: bg-gradient-to-br from-green-400 via-blue-500 to-cyan-500
+slides:
+  - Review
+  - Course Overview
+  - File Identification
+  - Lab 1
+  - File Extraction
+  - Lab 2
+  - Homework
 ---
-
-
 
 <div class="abs-br m-6 text-xl">
   <button @click="$slidev.nav.openInEditor()" title="Open in Editor" class="slidev-icon-btn">
@@ -19,7 +25,7 @@ imageGradient: bg-gradient-to-br from-green-400 via-blue-500 to-cyan-500
 </div>
 
 ---
-layout: slide-with-progress
+currentNav: "Review"
 ---
 
 # Review
@@ -36,7 +42,7 @@ layout: slide-with-progress
 </div>
 
 ---
-layout: slide-with-progress
+currentNav: "Course Overview"
 ---
 
 # Course Overview
@@ -44,48 +50,70 @@ layout: slide-with-progress
 Some description goes here.
 
 ---
+currentNav: "Course Overview"
+---
 
 ## Secondary Slide 1
 
 ---
+currentNav: "Course Overview"
+---
 
 ## Secondary Slide 2
 
+---
+currentNav: "File Identification"
 ---
 
 # File Identification
 
 ---
+currentNav: "File Identification"
+---
 
 ## Secondary Slide 1
 
 ---
+currentNav: "File Identification"
+---
 
 ## Secondary Slide 2
 
+---
+currentNav: "Lab 1"
 ---
 
 ## Lab 1
 
 ---
+currentNav: "File Extraction"
+---
 
 # File Extraction
 
+---
+currentNav: "File Extraction"
 ---
 
 ## Secondary Slide 1
 
 ---
+currentNav: "File Extraction"
+---
 
 ## Secondary Slide 2
 
+---
+currentNav: "Lab 2"
 ---
 
 ## Lab 2
 
 ---
+currentNav: "Homework"
+---
 
-# End of Week 1
+# Homework
 
 Thank you for attending!
 

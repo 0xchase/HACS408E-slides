@@ -16,10 +16,6 @@ imageGradient: bg-gradient-to-br from-purple-400 via-pink-500 to-red-500
   </button>
 </div>
 
----
-layout: slide-with-progress
----
-
 # Review
 
 <CourseTimeline :currentWeek="2" />
