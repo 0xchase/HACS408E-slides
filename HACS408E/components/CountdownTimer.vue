@@ -228,13 +228,13 @@ onUnmounted(() => {
 }
 
 .time-btn {
-  background-color: #4b5563;
-  color: #fff;
+  background-color: rgba(75, 85, 99, 0.6);
+  color: rgba(255, 255, 255, 0.8);
   border: none;
   border-radius: 4px;
   padding: 4px 6px;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  transition: all 0.2s ease;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -243,7 +243,8 @@ onUnmounted(() => {
 }
 
 .time-btn:hover {
-  background-color: #6b7280;
+  background-color: rgba(75, 85, 99, 0.8);
+  color: rgba(255, 255, 255, 0.9);
 }
 
 .minus-btn {
