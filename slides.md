@@ -32,8 +32,6 @@ seoMeta:
   ogImage: auto
 # Global CSS file for logo and styling
 css: './style.css'
-# apply unocss classes to the current slide (for non-title slides)
-class: text-center
 # Custom layout for title slide
 layout: title-with-image
 # Title slide content
