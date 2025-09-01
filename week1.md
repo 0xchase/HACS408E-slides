@@ -1,15 +1,11 @@
 ---
-title: Applied Reverse Engineering
+title: File Formats
 layout: title-with-image
-subtitle: Week 1
-description: Foundations and principles of HCI
+description: Identifying magic bytes, parsing file headers, extracting files from binary.
 buttonText: Start Week 1
 imageText: Week 1
-imageCaption: Introduction to HCI
-frameGradient: bg-gradient-to-r from-green-500 to-blue-600
-imageGradient: bg-gradient-to-br from-green-400 via-blue-500 to-cyan-500
 slides:
-  - Course Overview
+  - Course Logistics
   - Reverse Engineering
   - File Identification
   - Lab 1
@@ -18,66 +14,77 @@ slides:
   - Homework
 ---
 
-<div class="abs-br m-6 text-xl">
-  <button @click="$slidev.nav.openInEditor()" title="Open in Editor" class="slidev-icon-btn">
-    <carbon:edit />
-  </button>
-</div>
+```
+7a85 dabd 8b48 892c a7c3 4cb4 e24c 3b40
+8e66 2eb8 7ac1 a36d 95dc b150 8b84 3d02
+782e 32bf d9d7 f400 f1ad 7fac b258 6fc6
+e966 c004 d7d1 d16b 024f 5805 ff7c b47c 
+7a85 dabd 8b48 892c a7ad 7fac b258 6fc6 
+7a85 dabd 8b48 892c a7ad 7fac b258 6fc6
+e966 c004 d7d1 d16b 024f 5805 ff7c b47c
+371b f798 90fb 1861 2d53 e282 bb5e 8cd0
+7aea 31e9 9659 d7d9 f6ad 7fac b258 6fc6 
+```
 
 ---
-currentNav: "Course Overview"
+layout: section
+title: Course Logistics
 ---
 
-# Course Overview
+---
+currentNav: "Course Logistics"
+---
 
+# Welcome to [Applied Reverse Engineering](hacs408e.umd.edu)
+
+This course will introduce students to the tools and techniques required to analyze the security properties of various systems. Topics covered will include assembly language, executable file formats, operating system internals, and the static/dynamic analysis of compiled binaries. Students will apply these concepts to real-world scenarios like malware analysis and vulnerability analysis with interactive labs, at-home assignments, and a final project.
+
+- **Course Code**: HACS408E
 - **Instructors**: Chase Kanipe, Luke Mains
 - **Email**: ckanipe@umd.edu, lmains@umd.edu
-- **Website**: hacs408e.umd.edu
 - **Books**: None required
 
 ---
-currentNav: "Course Overview"
+currentNav: "Course Logistics"
 ---
 
 # Assignments
 
-The majority of time in class will be spent on labs. This is an applied course. The weekly homeworks (50% of your grade) will require you to demonstrate mastery of the techniques taught through the labs. In lieu of a midterm exam students will present their reverse engineering efforts against malware samples assigned to each group.
-
----
-currentNav: "Course Overview"
----
-
-# Grading
+This is an *applied* course. The majority of time in-class will be spent on labs and the largest portion of your grade will come from homeworks that test your mastery of the lab material.
 
 | Assignment | Weight |
 | --- | --- |
-| Homework | 50% |
-| Quizzes	 | 10% |
-| Participation	| 10% |
-| Team Presentation	| 10% |
-| Final Project	| 20% |
-| Total	| 100% |
+| Homework | 40% |
+| Labs | 10% |
+| Quizzes	 | 15% |
+| Team Presentation	| 15% |
+| Final | 20% |
 
 ---
-currentNav: "Course Overview"
+currentNav: "Course Logistics"
+---
+
+# Course Website
+
+The syllabus, assignments, and labs, and other resources can be found on the course website. Submissions for labs and homeworks will be on Canvas.
+
+<Browser 
+  url="https://hacs408e.umd.edu"
+  width="100%"
+  height="380px"
+/>
+
+---
+currentNav: "Course Logistics"
 ---
 
 # Policies
 
+Authoritative course policies are in the syllabus, but I'd like to highlight a few here.
+
+- Collaboration is allowed on the labs and homeworks, but you should create your own writeups
+- Use of AI is allowed except during the quizzes.
 - Do not attempt to use what you learn in this class to commit illegal acts.
-- You will learn things in this course that you potentially can use to 'steal' intellectual property and exploit commercial software.
-- It's not our intent to train a new generation of criminals.
-- Use your best judgement, what you choose to do with this knowledge is on you.
-
----
-currentNav: "Course Overview"
----
-
-# Website
-
-HACS408E.umd.edu
-
-discord link here
 
 ---
 currentNav: "Reverse Engineering"

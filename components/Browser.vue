@@ -1,5 +1,5 @@
 <template>
-  <div class="browser-container" :style="{ height: height }">
+  <div class="browser-container" :style="{ width: width, height: height }">
     <!-- Mac-style title bar -->
     <div class="browser-titlebar">
       <div class="titlebar-buttons">
@@ -25,6 +25,7 @@
         height="100%" 
         frameborder="0"
         class="browser-iframe"
+        style="transform: scale(1.0); transform-origin: 0 0;"
       ></iframe>
     </div>
   </div>

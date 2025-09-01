@@ -3,7 +3,10 @@
   padding-top: 25px;
 }
 
-/* Global styles for all slides */
+.slidev-layout h1 {
+  margin-bottom: 1.25rem;
+}
+
 .slidev-layout::after {
   content: '';
   position: absolute;
