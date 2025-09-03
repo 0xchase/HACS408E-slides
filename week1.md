@@ -44,6 +44,14 @@ This course will introduce students to the tools and techniques required to anal
 currentNav: "Course Logistics"
 ---
 
+# Course Survey
+
+[https://forms.gle/ncP8va5yojNijqzf6](https://forms.gle/ncP8va5yojNijqzf6)
+
+---
+currentNav: "Course Logistics"
+---
+
 # Assignments
 
 This is an *applied* course. The majority of time in-class will be spent on labs and the largest portion of your grade will come from homeworks that test your mastery of the lab material.
