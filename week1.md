@@ -7,6 +7,7 @@ imageText: Week 1
 slides:
   - Course Logistics
   - Reverse Engineering
+  - Lab Setup
   - File Identification
   - Lab 1
   - File Extraction
@@ -25,11 +26,6 @@ e966 c004 d7d1 d16b 024f 5805 ff7c b47c
 371b f798 90fb 1861 2d53 e282 bb5e 8cd0
 7aea 31e9 9659 d7d9 f6ad 7fac b258 6fc6 
 ```
-
----
-layout: section
-title: Course Logistics
----
 
 ---
 currentNav: "Course Logistics"
@@ -56,8 +52,8 @@ This is an *applied* course. The majority of time in-class will be spent on labs
 | --- | --- |
 | Homework | 40% |
 | Labs | 10% |
-| Quizzes	 | 15% |
-| Team Presentation	| 15% |
+| Quizzes	 | 10% |
+| Team Presentation	| 20% |
 | Final | 20% |
 
 ---
@@ -84,7 +80,6 @@ Authoritative course policies are in the syllabus, but I'd like to highlight a f
 
 - Collaboration is allowed on the labs and homeworks, but you should create your own writeups
 - Use of AI is allowed except during the quizzes.
-- Do not attempt to use what you learn in this class to commit illegal acts.
 
 ---
 currentNav: "Reverse Engineering"
@@ -96,7 +91,7 @@ Reverse engineering is the process of analyzing an existing system to understand
 
 **Reasons:**
 
-- Vulnerability Analysis
+- Vulnerability Analysis and Exploitation
 - Malware Analysis
 - Interoperability
 - ~~Piracy~~
@@ -108,25 +103,7 @@ layout: image-right
 image: /assets/images/marcus-wired.png
 ---
 
-# Example 1: Malware Analysis
-
-In May of 2017, the WannaCry ransomware had infected an estimated 300,000 computers worldwide, encrypting user files and demanding a ransom payment.
-
-British researcher Marcus Hutchins:
-
-- Reverse engineered the worm's artifacts
-- Spotted a hard-coded domain that functioned as a kill switch when registered
-- Registered the domain, halting the spread
-- Arrested for writing malware in his free time
-
----
-currentNav: "Reverse Engineering"
-layout: image-right-2
-image1: /assets/images/balloon.png
-image2: /assets/images/balloon-fbi.png
----
-
-# Example 2: Counterintelligence
+# In The News: Malware Analysis
 
 In May of 2017, the WannaCry ransomware had infected an estimated 300,000 computers worldwide, encrypting user files and demanding a ransom payment.
 
@@ -144,16 +121,31 @@ image1: /assets/images/playstation.png
 image2: /assets/images/hotz.png
 ---
 
-# Example 3: Interoperability
+# In The News: Interoperability
 
-In May of 2017, the WannaCry ransomware had infected an estimated 300,000 computers worldwide, encrypting user files and demanding a ransom payment.
+Console developer go to great lengths to prevent users from running custom software, primarily to prevent piracy.
 
-British researcher Marcus Hutchins:
+In December of 2009, George Hotz:
 
-- Reverse engineered the worm's artifacts
-- Spotted a hard-coded domain that functioned as a kill switch when registered
-- Registered the domain, halting the spread
-- Arrested for writing malware in his free time
+- Began a multi-year project to exploit the Playstation 3
+- Found exploits that granted him hypervisor-level code execution
+- Published the exploits and a private key
+- Sony applied for a temporary restraining order
+
+---
+currentNav: "Reverse Engineering"
+layout: image-right
+image: /assets/images/nso.png
+---
+
+# In The News: Exploitation
+
+Google's Project Zero has some of the best public writeups on exploitation in the wild. One example is their writeup on ForcedEntry, a zero-click iPhone exploit that triggers an integer overflow in Apple's Core Graphics library. The exploit is part of the Pegasus spyware developed by the NSO Group, an Israeli security firm.
+
+Reverse engineering was used by multiple parties:
+
+- NSO Group reverse engineered iPhone internals to find the exploit
+- Security researchers reverse engineered the exploit to document the vulnerability
 
 ---
 currentNav: "Reverse Engineering"
@@ -161,182 +153,48 @@ currentNav: "Reverse Engineering"
 
 # Ethics
 
-Don't be evil.
+- Do not attempt to use what you learn in this class to commit illegal acts.
+- The techniques taught in this course can be used for multiple purposes
+- Use them in a way that complies with U.S. law and university policy
 
 ---
 currentNav: "Reverse Engineering"
 ---
 
-# Outcomes for this course
+# Topics for this course
 
-Skill tree here.
+We don't have time to cover every aspect of software reverse engineering. These will be our focus.
+
+- Identify and characterize arbitrary files
+- Analyze source code and compiled binaries
+- Some coverage of Linux and Windows internals
+- Network protocols
+- Malware Analysis
+- Vulnerability Analysis and Exploitation
+- Modern Applications and Languages
 
 ---
 currentNav: "Reverse Engineering"
 ---
 
-# Outcomes for this class
+# Jobs that use Reverse Engineering
 
-<SkillTree :data="reverseEngineeringSkills" />
+Since this is an *applied* course, we're focused on skills that are immediately applicable in the workforce. We hope this knowledge will be useful to you in interviews.
 
-<script setup>
-const reverseEngineeringSkills = {
-  rootNode: {
-    title: "Reverse Engineering Skills",
-    icon: "🎯",
-    branches: [
-      {
-        title: "File Analysis",
-        icon: "📁",
-        subBranches: [
-          {
-            title: "File Identification",
-            icon: "🔍",
-            leaves: [
-              { title: "Magic Numbers", icon: "🔢" },
-              { title: "File Extensions", icon: "📄" },
-              { title: "Header Analysis", icon: "📋" }
-            ]
-          },
-          {
-            title: "File Signatures",
-            icon: "✍️",
-            leaves: [
-              { title: "Pattern Matching", icon: "🎯" },
-              { title: "Database Lookup", icon: "🗄️" }
-            ]
-          },
-          {
-            title: "File Extraction",
-            icon: "📦",
-            leaves: [
-              { title: "Binary Blobs", icon: "💾" },
-              { title: "Archive Analysis", icon: "🗜️" }
-            ]
-          }
-        ]
-      },
-      {
-        title: "Binary Analysis",
-        icon: "⚙️",
-        subBranches: [
-          {
-            title: "Assembly Language",
-            icon: "💻",
-            leaves: [
-              { title: "x86 Assembly", icon: "🖥️" },
-              { title: "ARM Assembly", icon: "📱" },
-              { title: "MIPS Assembly", icon: "🔧" }
-            ]
-          },
-          {
-            title: "Disassembly",
-            icon: "🔓",
-            leaves: [
-              { title: "Control Flow", icon: "🔄" },
-              { title: "Data Flow", icon: "📊" }
-            ]
-          },
-          {
-            title: "Decompilation",
-            icon: "📝",
-            leaves: [
-              { title: "High-Level Code", icon: "📋" },
-              { title: "Function Recovery", icon: "🔍" }
-            ]
-          }
-        ]
-      },
-      {
-        title: "Network Analysis",
-        icon: "🌐",
-        subBranches: [
-          {
-            title: "Protocol Analysis",
-            icon: "📡",
-            leaves: [
-              { title: "Traffic Inspection", icon: "👁️" },
-              { title: "Packet Analysis", icon: "📦" }
-            ]
-          },
-          {
-            title: "Network Forensics",
-            icon: "🕵️",
-            leaves: [
-              { title: "Log Analysis", icon: "📋" },
-              { title: "Timeline Analysis", icon: "⏰" }
-            ]
-          }
-        ]
-      },
-      {
-        title: "Malware Analysis",
-        icon: "🦠",
-        subBranches: [
-          {
-            title: "Static Analysis",
-            icon: "📖",
-            leaves: [
-              { title: "Code Analysis", icon: "💻" },
-              { title: "String Analysis", icon: "🔤" },
-              { title: "Import Analysis", icon: "📥" }
-            ]
-          },
-          {
-            title: "Dynamic Analysis",
-            icon: "🧪",
-            leaves: [
-              { title: "Sandbox Analysis", icon: "🏗️" },
-              { title: "API Monitoring", icon: "📊" },
-              { title: "Registry Analysis", icon: "🗃️" }
-            ]
-          },
-          {
-            title: "Behavioral Analysis",
-            icon: "👁️",
-            leaves: [
-              { title: "Process Monitoring", icon: "📈" },
-              { title: "Network Behavior", icon: "🌐" },
-              { title: "File System Changes", icon: "💾" }
-            ]
-          }
-        ]
-      },
-      {
-        title: "Tools & Techniques",
-        icon: "🛠️",
-        subBranches: [
-          {
-            title: "Analysis Tools",
-            icon: "🔧",
-            leaves: [
-              { title: "Hex Editors", icon: "🔢" },
-              { title: "Disassemblers", icon: "🔓" },
-              { title: "Debuggers", icon: "🐛" }
-            ]
-          },
-          {
-            title: "Network Tools",
-            icon: "📡",
-            leaves: [
-              { title: "Wireshark", icon: "🦈" },
-              { title: "tcpdump", icon: "📊" }
-            ]
-          },
-          {
-            title: "Automation",
-            icon: "🤖",
-            leaves: [
-              { title: "Python Scripts", icon: "🐍" },
-              { title: "Shell Scripts", icon: "🐚" }
-            ]
-          }
-        ]
-      }
-    ]
-  }
-}
-</script>
+- Software Engineer
+- Security Researcher
+- Malware Analyst
+- Forensic Analyst
+- Incident Response
+- Vulnerability Analyst
+- Security Operations Center Analyst
+- Computer Network Operations Developer
+
+---
+layout: section
+title: "Lab Setup"
+currentNav: "Lab Setup"
+---
 
 ---
 currentNav: "File Identification"
@@ -344,19 +202,58 @@ currentNav: "File Identification"
 
 # File Identification
 
+**Scenario**: You're given a file of an unknown type. How can you identify it to begin your analysis?
+
+<v-clicks depth="2">
+
+- Double click it and see what happens
+  - Might not work for all files
+  - Could be malicious
+- Look for the extension extension (`.exe`, `.pdf`, `.`)
+  - Might not have one
+  - Malware authors might alter it to make a malicious file appear legitimate
+- Thankfully, most file types have a publically documented "magic bytes" 
+  - These are a signature (usually 4-8 bytes) that identify different file types
+  - At the beginning of the file
+
+</v-clicks>
+
 ---
 currentNav: "File Identification"
 ---
 
-## Secondary Slide 1
+## Identifying Magic Bytes
+
+You can dump the hex of a file using the `xxd` utility.
+
+```
+chase@Chases-MacBook-Pro ~ % xxd /bin/ls | head
+00000000: cafe babe 0000 0002 0100 0007 0000 0003  ................
+00000010: 0000 4000 0000 bbf0 0000 000e 0100 000c  ..@.............
+00000020: 8000 0002 0001 0000 0001 5c00 0000 000e  ..........\.....
+00000030: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+00000040: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+00000050: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+00000060: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+00000070: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+00000080: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+00000090: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+```
+
+**Note**: Magic bytes aren't infallible. `0xcafebabe` is used to identify both Mach-O binaries and Java classes.
+
+```
+chase@Chases-MacBook-Pro ~ % file /bin/ls
+/bin/ls: Mach-O universal binary with 2 architectures
+```
 
 ---
 currentNav: "File Identification"
 ---
 
-## Wikipedia Slide
+## List of Magic Bytes
 
-Here's some text that describes the content.
+Various internet sources have lists of magic bytes you can search for.
 
 <Browser 
   url="https://en.wikipedia.org/wiki/List_of_file_signatures" 
@@ -370,9 +267,9 @@ currentNav: "Lab 1"
 
 ## Lab 1
 
-This lab is meant to show how to do stuff.
+File identification.
 
-https://hacs408e.umd.edu/schedule/week-01/
+[https://hacs408e.umd.edu/schedule/week-01/lab-1/](https://hacs408e.umd.edu/schedule/week-01/lab-1/)
 
 <CountdownTimer :destHour="18" :destMinute="15" />
 
@@ -380,23 +277,13 @@ https://hacs408e.umd.edu/schedule/week-01/
 currentNav: "File Extraction"
 ---
 
-# File Extraction
+## File Carving
 
----
-currentNav: "File Extraction"
----
+Sometimes a single binary blob will have multiple files embedded in it. We can use `dd` to carve those files from the blob.
 
-## Secondary Slide 1
+`dd if=example.bin of=output.bin skip=SKIP_BYTES bs=1 count=SIZE`
 
----
-currentNav: "File Extraction"
----
-
-## Hex Extract
-
-Here's some text that describes what to do.
-
-```c [example.bin] {all|6|11|6-10|11|16|11-15|16|22|16-21|22|all}{maxHeight: '400px',lines: true}
+```c [example.bin] {all|6|11|6-10|11|16|11-15|16|22|16-21|22|all}{maxHeight: '330px',lines: true}
 00000000: AA BB CC DD EE FF 00 11 22 33 44 55 66 77 88 99  ........"3DUfw..
 00000010: 00 11 22 33 44 55 66 77 88 99 AA BB CC DD EE FF  .."3DUfw........
 00000020: 07 07 07 09 09 08 0A 0C 14 0D 0C 0B 0B 0C 19 12  ................
@@ -432,7 +319,7 @@ currentNav: "Lab 2"
 
 ## Lab 2
 
-Instructions for how to complete Lab 2.
+[https://hacs408e.umd.edu/schedule/week-01/lab-2/](https://hacs408e.umd.edu/schedule/week-01/lab-2/)
 
 <CountdownTimer :destHour="19" :destMinute="40" />
 
@@ -442,10 +329,4 @@ currentNav: "Homework"
 
 # Homework
 
-Thank you for attending!
-
-<div class="mt-8">
-  <div class="text-sm text-gray-400">
-    Next: Week 2
-  </div>
-</div>
+We'll announce the first homework soon. It will be due in 2 weeks.

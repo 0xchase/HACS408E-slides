@@ -33,10 +33,10 @@ import GlobalProgress from '../components/GlobalProgress.vue'
 .slide-content {
   display: grid;
   grid-template-columns: 2fr 1fr;
+  grid-template-rows: 1fr;
   gap: 2rem;
   align-items: start;
   height: 100%;
-  padding: 1rem;
   overflow: hidden;
   position: relative;
 }
@@ -44,15 +44,20 @@ import GlobalProgress from '../components/GlobalProgress.vue'
 .content-left {
   overflow-y: auto;
   max-height: 100%;
+  grid-column: 1;
+  grid-row: 1;
+  align-self: start;
 }
 
 .content-right {
   display: flex;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
   max-height: 100%;
   overflow: hidden;
   position: relative;
+  grid-column: 2;
+  grid-row: 1;
 }
 
 .slide-image {
@@ -63,7 +68,7 @@ import GlobalProgress from '../components/GlobalProgress.vue'
   border-radius: 0.5rem;
   box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   object-fit: contain;
-  object-position: top center;
+  object-position: center center;
   display: block;
   margin: 0;
   padding: 0;
