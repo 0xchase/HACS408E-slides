@@ -87,12 +87,12 @@ currentNav: "Reverse Engineering"
 
 # What is Reverse Engineering?
 
-Reverse engineering is the process of analyzing an existing system to understand it's inner workings. This course will be primarily focused on *software* reversing with 
+Reverse engineering is the process of analyzing an existing system to understand it's inner workings. This course will be primarily focused on *software* reversing with applications to cybersecurity.
 
 **Reasons:**
 
-- Vulnerability Analysis and Exploitation
 - Malware Analysis
+- Vulnerability Analysis and Exploitation
 - Interoperability
 - ~~Piracy~~
 - ~~Intellectual Property Theft~~
@@ -134,8 +134,9 @@ In December of 2009, George Hotz:
 
 ---
 currentNav: "Reverse Engineering"
-layout: image-right
-image: /assets/images/nso.png
+layout: image-right-2
+image1: /assets/images/nso.png
+image2: /assets/images/exploit.png
 ---
 
 # In The News: Exploitation
@@ -144,8 +145,10 @@ Google's Project Zero has some of the best public writeups on exploitation in th
 
 Reverse engineering was used by multiple parties:
 
-- NSO Group reverse engineered iPhone internals to find the exploit
-- Security researchers reverse engineered the exploit to document the vulnerability
+- NSO Group reversed iPhone internals to find the exploit
+- Security researchers reversed the exploit to patch the vulnerability
+
+Exploit development continues to be a high demand skill. By the end of this class you'll be able to understand how these chains work.
 
 ---
 currentNav: "Reverse Engineering"
@@ -179,9 +182,8 @@ currentNav: "Reverse Engineering"
 
 # Jobs that use Reverse Engineering
 
-Since this is an *applied* course, we're focused on skills that are immediately applicable in the workforce. We hope this knowledge will be useful to you in interviews.
+Since this is an *applied* course, we're focused on skills that are immediately applicable in the workforce. Quiz questions will be inspired by questions I've gotten in interviews.
 
-- Software Engineer
 - Security Researcher
 - Malware Analyst
 - Forensic Analyst
@@ -189,6 +191,8 @@ Since this is an *applied* course, we're focused on skills that are immediately 
 - Vulnerability Analyst
 - Security Operations Center Analyst
 - Computer Network Operations Developer
+- **Software Engineer**
+- ...
 
 ---
 layout: section
