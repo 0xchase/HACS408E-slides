@@ -100,7 +100,7 @@ Reverse engineering is the process of analyzing an existing system to understand
 ---
 currentNav: "Reverse Engineering"
 layout: image-right
-image:   /images/marcus-wired.png
+image: {BASE_URL}/images/marcus-wired.png
 ---
 
 # In The News: Malware Analysis
@@ -117,8 +117,8 @@ British researcher Marcus Hutchins:
 ---
 currentNav: "Reverse Engineering"
 layout: image-right-2
-image1:   /images/playstation.png
-image2:   /images/hotz.png
+image1: {BASE_URL}/images/playstation.png
+image2: {BASE_URL}/images/hotz.png
 ---
 
 # In The News: Interoperability
@@ -135,8 +135,8 @@ In December of 2009, George Hotz:
 ---
 currentNav: "Reverse Engineering"
 layout: image-right-2
-image1: /images/nso.png
-image2: /images/exploit.png
+image1: {BASE_URL}/images/nso.png
+image2: {BASE_URL}/images/exploit.png
 ---
 
 # In The News: Exploitation
