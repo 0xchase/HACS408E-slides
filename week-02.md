@@ -8,10 +8,8 @@ slides:
   - Review
   - Platforms
   - Linux
-  - Reverse Engineering
-  - File Identification
   - Lab 1
-  - File Extraction
+  - Code Analysis
   - Lab 2
   - Homework
 ---
@@ -34,16 +32,7 @@ currentNav: "Review"
 
 # Review
 
-Some text goes here.
-
-<CourseTimeline currentWeek="2" />
-
-<WeekComparison 
-  lastWeekSummary="File triage and extraction techniques, including magic bytes identification and file carving."
-  lastWeekHomework="Lab exercises on file identification and extraction"
-  thisWeekSummary="Platform analysis, reverse engineering fundamentals, and file identification methods."
-  thisWeekHomework="Lab exercises on file identification and carving"
-/>
+Any questions on what we covered last week?
 
 ---
 currentNav: "Platforms"
@@ -70,6 +59,35 @@ When analyzing a device we ask a variety of questions.
 - **Applications**: What services does it run? What ports? What dependencies?
 
 </v-clicks>
+
+---
+currentNav: "Platforms"
+---
+
+# Hardware
+
+The first step is usually understanding the hardware.
+
+<ScrollableView height="400px">
+  <img src="/images/router-board.png" style="height=100%; object-fit" />
+</ScrollableView>
+
+---
+currentNav: "Platforms"
+---
+
+# Operating System
+
+Some devices run the firmware directly (Arduino, Network Card, Motherboard, SSD, some IOT devices), but these days most have an operating system, whose primary purpose is providing an interface between user applications and the hardware.
+
+<Row>
+  <Column><img src="/images/windows.png"/></Column>
+  <Column><img src="/images/macos.png" /></Column>
+  <Column><img src="/images/linux.png" /></Column>
+  <Column><img src="/images/ios.png" /></Column>
+  <Column><img src="/images/android.png" /></Column>
+  <Column><img src="/images/templeos.png" /></Column>
+</Row>
 
 ---
 currentNav: "Platforms"
@@ -159,14 +177,18 @@ currentNav: "Platforms"
 
 # Test Your Comprehension
 
-Should have a custom Q/A component.
+Here's some questions.
 
 <v-clicks depth="2">
 
-- What's the interface between user and kernel mode?
-- Some other question?
-- Some other question?
-- Some other question?
+- What's the *difference* between user and kernel mode?
+- What's the *interface* between user and kernel mode?
+- Which of these are handled by the user processes vs. the kernel?
+  - `printf` formatting
+  - Command parsing
+  - Process creation
+  - Heap management
+  - Device drivers
 
 </v-clicks>
 
@@ -174,13 +196,56 @@ Should have a custom Q/A component.
 currentNav: "Linux"
 ---
 
-# We'll Cover
+# Linux
 
-Should have a custom Q/A component.
+Since most customized platforms run a linux variant, we'll focus on it as our operating system for platform analysis.
 
-- Applications and kernel
-- File system (interesting directories)
-- Security relevant (passwords, users, ssh keys, etc)
+We'll look at
+
+- Versioning
+- File system locations to triage
+- Application triage
+
+---
+currentNav: "Linux"
+---
+
+# System Versions
+
+One critical piece of information for most platforms is its *version*.
+
+Where can I find the operating system version?
+
+<v-click>
+```
+$ cat /etc/issue
+Ubuntu 24.04.1 LTS \n \l
+```
+
+```
+$ cat /etc/os-release
+NAME="Ubuntu"
+VERSION="24.04.1 LTS (Noble Numbat)"
+ID=ubuntu
+ID_LIKE=debian
+PRETTY_NAME="Ubuntu 24.04.1 LTS"
+VERSION_ID="24.04"
+```
+
+</v-click>
+<v-click>
+Where can I find the kernel version?
+</v-click>
+<v-click>
+
+```
+$ cat /proc/version
+Linux version 5.9.0-41-generic (buildd@...) (gcc (Ubuntu 13.3.0-6ubuntu2) 13.3.0) #41-Ubuntu SMP PREEMPT_DYNAMIC Fri Aug 16 12:34:56 UTC 2025
+```
+
+What [can I do](https://www.exploit-db.com/exploits/50808) with this information?
+</v-click>
+
 
 ---
 currentNav: "Linux"
@@ -194,16 +259,12 @@ When analyzing a linux platform, it's useful to have a general understanding of 
   <Column>
   Some things to look for.
 
-  <v-clicks depth="2">
-
   - Where are user files (documents, downloads, etc)?
   - Where are the executables?
   - Where are libraries like libc?
   - Where's the list of users/groups?
   - Where are password hashes?
   - Where might I find other key material?
-
-  </v-clicks>
 
   </Column>
   <Column>
@@ -337,40 +398,6 @@ When analyzing a linux platform, it's useful to have a general understanding of 
 currentNav: "Linux"
 ---
 
-# System Versions
-
-One critical piece of information for most platforms is its *version*.
-
-Operating system version.
-
-```
-$ cat /etc/issue
-Ubuntu 24.04.1 LTS \n \l
-```
-
-```
-$ cat /etc/os-release
-NAME="Ubuntu"
-VERSION="24.04.1 LTS (Noble Numbat)"
-ID=ubuntu
-ID_LIKE=debian
-PRETTY_NAME="Ubuntu 24.04.1 LTS"
-VERSION_ID="24.04"
-```
-
-Kernel version.
-
-```
-$ cat /proc/version
-Linux version 5.9.0-41-generic (buildd@...) (gcc (Ubuntu 13.3.0-6ubuntu2) 13.3.0) #41-Ubuntu SMP PREEMPT_DYNAMIC Fri Aug 16 12:34:56 UTC 2025
-```
-
-What [can I do](https://www.exploit-db.com/exploits/50808) with this information?
-
----
-currentNav: "Linux"
----
-
 # Application Versions
 
 What are some ways we might get an application's version?
@@ -402,95 +429,106 @@ The type of CPU this version of Bash is running under.
 </v-click>
 
 ---
-currentNav: "Reverse Engineering"
+currentNav: "Linux"
 ---
 
-# Topics for this course
+# Startup Scripts
 
-We don't have time to cover every aspect of software reverse engineering. These will be our focus.
+To get a comprehensive understanding of a system's services, it's useful to start with the system boot scripts.
 
-- Identify and characterize arbitrary files
-- Analyze source code and compiled binaries
-- Some coverage of Linux and Windows internals
-- Network protocols
-- Malware Analysis
-- Vulnerability Analysis and Exploitation
-- Modern Applications and Languages
+**systemd**
 
----
-currentNav: "Reverse Engineering"
----
-
-# Jobs that use Reverse Engineering
-
-Since this is an *applied* course, we're focused on skills that are immediately applicable in the workforce. Quiz questions will be inspired by questions I've gotten in interviews.
-
-- Security Researcher
-- Malware Analyst
-- Forensic Analyst
-- Incident Response
-- Vulnerability Analyst
-- Security Operations Center Analyst
-- Computer Network Operations Developer
-- **Software Engineer**
-- ...
-
----
-layout: section
-title: "Lab Setup"
-currentNav: "Lab Setup"
----
-
----
-currentNav: "File Identification"
----
-
-# File Identification
-
-**Scenario**: You're given a file of an unknown type. How can you identify it to begin your analysis?
-
-<v-clicks depth="2">
-
-- Double click it and see what happens
-  - Might not work for all files
-  - Could be malicious
-- Look for the extension extension (`.exe`, `.pdf`, `.`)
-  - Might not have one
-  - Malware authors might alter it to make a malicious file appear legitimate
-- Thankfully, most file types have a publically documented "magic bytes" 
-  - These are a signature (usually 4-8 bytes) that identify different file types
-  - At the beginning of the file
-
-</v-clicks>
-
----
-currentNav: "File Identification"
----
-
-## Identifying Magic Bytes
-
-You can dump the hex of a file using the `xxd` utility.
+<ScrollableView height="150px">
 
 ```
-chase@Chases-MacBook-Pro ~ % xxd /bin/ls | head
-00000000: cafe babe 0000 0002 0100 0007 0000 0003  ................
-00000010: 0000 4000 0000 bbf0 0000 000e 0100 000c  ..@.............
-00000020: 8000 0002 0001 0000 0001 5c00 0000 000e  ..........\.....
-00000030: 0000 0000 0000 0000 0000 0000 0000 0000  ................
-00000040: 0000 0000 0000 0000 0000 0000 0000 0000  ................
-00000050: 0000 0000 0000 0000 0000 0000 0000 0000  ................
-00000060: 0000 0000 0000 0000 0000 0000 0000 0000  ................
-00000070: 0000 0000 0000 0000 0000 0000 0000 0000  ................
-00000080: 0000 0000 0000 0000 0000 0000 0000 0000  ................
-00000090: 0000 0000 0000 0000 0000 0000 0000 0000  ................
+# /etc/systemd/system/myapp.service
+[Unit]
+Description=MyApp service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=myapp
+Group=myapp
+WorkingDirectory=/opt/myapp
+EnvironmentFile=-/etc/default/myapp
+# e.g. in /etc/default/myapp: MYAPP_PORT=8080 EXTRA_FLAGS="--verbose"
+ExecStartPre=/usr/bin/mkdir -p /var/log/myapp /var/lib/myapp
+ExecStart=/usr/local/bin/myapp --port=${MYAPP_PORT:-8080} ${EXTRA_FLAGS}
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=on-failure
+RestartSec=5
+LimitNOFILE=65536
+
+# (Optional) hardening
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/myapp /var/log/myapp
 ```
 
-**Note**: Magic bytes aren't infallible. `0xcafebabe` is used to identify both Mach-O binaries and Java classes.
+</ScrollableView>
+
+**initd**
+
+<ScrollableView height="150px">
 
 ```
-chase@Chases-MacBook-Pro ~ % file /bin/ls
-/bin/ls: Mach-O universal binary with 2 architectures
+#!/bin/sh
+# /etc/init.d/myapp
+### BEGIN INIT INFO
+# Provides:          myapp
+# Required-Start:    $remote_fs $syslog $network
+# Required-Stop:     $remote_fs $syslog $network
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: MyApp daemon
+# Description:       Starts the myapp background service
+### END INIT INFO
+
+PATH=/sbin:/usr/sbin:/bin:/usr/bin
+NAME=myapp
+DAEMON=/usr/local/bin/myapp
+DAEMON_OPTS="--port ${MYAPP_PORT:-8080} ${EXTRA_FLAGS}"
+PIDFILE=/var/run/$NAME.pid
+USER=myapp
+LOGFILE=/var/log/$NAME.log
+ENVFILE=/etc/default/$NAME
+
+. /lib/lsb/init-functions
+[ -r "$ENVFILE" ] && . "$ENVFILE"
+
+do_start() {
+    start-stop-daemon --start --quiet --background \
+      --make-pidfile --pidfile "$PIDFILE" \
+      --chuid "$USER" \
+      --exec "$DAEMON" -- $DAEMON_OPTS >> "$LOGFILE" 2>&1 || return 2
+}
+
+do_stop() {
+    start-stop-daemon --stop --quiet --pidfile "$PIDFILE" \
+      --retry TERM/30/KILL/5 || return 2
+    rm -f "$PIDFILE"
+}
+
+do_status() {
+    status_of_proc -p "$PIDFILE" "$DAEMON" "$NAME"
+}
+
+case "$1" in
+  start)   log_daemon_msg "Starting $NAME"; do_start;  log_end_msg $? ;;
+  stop)    log_daemon_msg "Stopping $NAME"; do_stop;   log_end_msg $? ;;
+  restart|force-reload)
+           log_daemon_msg "Restarting $NAME"; do_stop; sleep 1; do_start; log_end_msg $? ;;
+  status)  do_status; exit $? ;;
+  *)       echo "Usage: $0 {start|stop|restart|force-reload|status}"; exit 2 ;;
+esac
+exit 0
 ```
+
+</ScrollableView>
 
 ---
 currentNav: "Lab 1"
@@ -498,51 +536,39 @@ currentNav: "Lab 1"
 
 ## Lab 1
 
-File identification.
-
-[https://hacs408e.umd.edu/schedule/week-01/lab-1/](https://hacs408e.umd.edu/schedule/week-01/lab-1/)
+Firmware startup analysis.
 
 <CountdownTimer :destHour="18" :destMinute="15" />
 
 ---
-currentNav: "File Extraction"
+currentNav: "Code Analysis"
 ---
 
-## File Carving
+# What to look for
 
-Sometimes a single binary blob will have multiple files embedded in it. We can use `dd` to carve those files from the blob.
+You may want to further analyze an application you discover. In the rest of this course we'll mostly be analyzing compiled applications, but sometimes you'll have source available if it's written in a scripting language or is open source.
 
-`dd if=example.bin of=output.bin skip=SKIP_BYTES bs=1 count=SIZE`
+- Languages
+- Frameworks
+- Dependencies
+- Versions
+  - Public vulnerabilities
 
-```c [example.bin] {all|6|11|6-10|11|16|11-15|16|22|16-21|22|all}{maxHeight: '330px',lines: true}
-00000000: AA BB CC DD EE FF 00 11 22 33 44 55 66 77 88 99  ........"3DUfw..
-00000010: 00 11 22 33 44 55 66 77 88 99 AA BB CC DD EE FF  .."3DUfw........
-00000020: 07 07 07 09 09 08 0A 0C 14 0D 0C 0B 0B 0C 19 12  ................
-00001000: 07 07 07 09 09 08 0A 0C 14 0D 0C 0B 0B 0C 19 12  ................
-00001010: FF EE DD CC BB AA 99 88 77 66 55 44 33 22 11 00  ........wfUD3"..
-00001020: 89 50 4E 47 0D 0A 1A 0A 00 00 00 0D 49 48 44 52  .PNG......IHDR
-00002000: 00 00 02 80 00 00 01 E0 08 06 00 00 00 75 71 3C  ..............uq<
-00002010: 07 07 07 09 09 08 0A 0C 14 0D 0C 0B 0B 0C 19 12  ................
-00002020: 07 07 07 09 09 08 0A 0C 14 0D 0C 0B 0B 0C 19 12  ................
-00003000: 4C 00 00 00 04 67 41 4D 41 00 00 B1 8F 0B FC 61  L....gAMA......a
-00003010: FF D8 FF E0 00 10 4A 46 49 46 00 01 02 01 00 60  ......JFIF.....`
-00003020: 00 60 00 00 FF DB 00 43 00 08 06 06 07 06 05 08  .`.....C........
-00004000: 07 07 07 09 09 08 0A 0C 14 0D 0C 0B 0B 0C 19 12  ................
-00004010: 07 07 07 09 09 08 0A 0C 14 0D 0C 0B 0B 0C 19 12  ................
-00004020: 07 07 07 09 09 08 0A 0C 14 0D 0C 0B 0B 0C 19 12  ................
-00005000: 50 4B 03 04 14 00 06 00 08 00 00 00 21 00 B3 AC  PK..........!...
-00005010: 8D 4E 00 00 00 00 00 00 00 00 00 00 08 00 1C 00  .N..............
-00005020: 07 07 07 09 09 08 0A 0C 14 0D 0C 0B 0B 0C 19 12  ................
-00006000: 07 07 07 09 09 08 0A 0C 14 0D 0C 0B 0B 0C 19 12  ................
-00006010: 74 65 73 74 2E 74 78 74 55 54 09 00 03 E8 3D 75  test.txtUT....=u
-00006020: 07 07 07 09 09 08 0A 0C 14 0D 0C 0B 0B 0C 19 12  ................
-00007000: 7F 45 4C 46 02 01 01 00 00 00 00 00 00 00 00 00  .ELF............
-00007010: 02 00 3E 00 01 00 00 00 78 00 40 00 00 00 00 00  ..>.....x.@.....
-00007020: 40 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  @...............
-00008000: 07 07 07 09 09 08 0A 0C 14 0D 0C 0B 0B 0C 19 12  ................
-00008010: 07 07 07 09 09 08 0A 0C 14 0D 0C 0B 0B 0C 19 12  ................
-00008020: 07 07 07 09 09 08 0A 0C 14 0D 0C 0B 0B 0C 19 12  ................
-```
+---
+currentNav: "Code Analysis"
+---
+
+# Analysis Strategies
+
+There's a variety of strategies for analyzing source code.
+
+- Reading through the code: open it in `vscode`
+- Running the application
+  - `python3 -m http.server`
+  - `npm run dev`
+- Code analysis tools
+  - Large language model
+  - Query langauges like `CodeQL`
 
 ---
 currentNav: "Lab 2"
@@ -550,7 +576,7 @@ currentNav: "Lab 2"
 
 ## Lab 2
 
-[https://hacs408e.umd.edu/schedule/week-01/lab-2/](https://hacs408e.umd.edu/schedule/week-01/lab-2/)
+[https://hacs408e.umd.edu/schedule/week-02/lab-2/](https://hacs408e.umd.edu/schedule/week-02/lab-2/)
 
 <CountdownTimer :destHour="19" :destMinute="40" />
 
@@ -561,3 +587,5 @@ currentNav: "Homework"
 # Homework
 
 First homework is due next week.
+
+I will be in Nevada wilderness from Thursday through next Monday.
