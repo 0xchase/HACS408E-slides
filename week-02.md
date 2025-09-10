@@ -1,7 +1,7 @@
 ---
-title: Platform Analysis
+title: Platform and Code Analysis
 layout: title-with-image
-description: Identifying magic bytes, parsing file headers, extracting files from binary.
+description: Identifying system components and properties
 buttonText: Start Week 2
 imageText: Week 2
 slides:
@@ -51,24 +51,23 @@ currentNav: "Platforms"
 
 # Platforms
 
-Sentence about what a platform is here.
+Recent years has seen a proliferation of many different devices and platforms. The first step to reverse engineering one is understanding the platform.
 
-Put a row of pictures of different IOT devices.
+<Row>
+  <Column><img src="/images/iot-router.png" /></Column>
+  <Column><img src="/images/iot-camera.png" /></Column>
+  <Column><img src="/images/iot-fridge.png" /></Column>
+  <Column><img src="/images/iot-watch.png" /></Column>
+  <Column><img src="/images/balloon.png" /></Column>
+</Row>
 
-<v-clicks depth="2">
+<v-clicks>
 
-- Hardware
-  - Is this a router?
-  - What board is it running?
-- Operating System
-  - Is it Windows, Linux, MacOS, etc?
-  - What version is it?
-  - Has it been modified?
-- Services and Applications
-  - What version is it?
-  - What language is it written in?
-  - What are its dependencies?
-  - What server is hosting it?
+When analyzing a device we ask a variety of questions. 
+
+- **Hardware**: What kind of device is it? What hardware components does it have?
+- **Operating System**: What's the operating system? What version is it? Has it been modified?
+- **Applications**: What services does it run? What ports? What dependencies?
 
 </v-clicks>
 
@@ -187,196 +186,220 @@ Should have a custom Q/A component.
 currentNav: "Linux"
 ---
 
-# Common Directories
+# Linux Directory Structure
 
-Here's the standard directory structure of a linux distribution.
+When analyzing a linux platform, it's useful to have a general understanding of the directory structure.
 
-<ScrollableView height="400px">
-  <DirectoryEntry name="/" description="Root directory" :expanded="true">
-    <DirectoryEntry name="bin" description="Essential binaries" :expanded="false">
-      <FileEntry name="bash" description="Bourne Again Shell" />
-      <FileEntry name="ls" description="List directory contents" />
-      <FileEntry name="cp" description="Copy files" />
-      <FileEntry name="mv" description="Move/rename files" />
-      <FileEntry name="rm" description="Remove files" />
-    </DirectoryEntry>
-    <DirectoryEntry name="sbin" description="System binaries" :expanded="false">
-      <FileEntry name="init" description="System initialization" />
-      <FileEntry name="mount" description="Mount filesystems" />
-      <FileEntry name="umount" description="Unmount filesystems" />
-      <FileEntry name="ifconfig" description="Network interface config" />
-    </DirectoryEntry>
-    <DirectoryEntry name="etc" description="Configuration files" :expanded="false">
-      <FileEntry name="passwd" description="User accounts" />
-      <FileEntry name="shadow" description="Encrypted passwords" />
-      <FileEntry name="hosts" description="Hostname resolution" />
-      <FileEntry name="fstab" description="Filesystem table" />
-      <DirectoryEntry name="systemd" description="System service configs">
-        <FileEntry name="system.conf" description="System configuration" />
-        <FileEntry name="user.conf" description="User configuration" />
-      </DirectoryEntry>
-    </DirectoryEntry>
-    <DirectoryEntry name="home" description="User directories" :expanded="false">
-      <DirectoryEntry name="alice" description="Alice's home directory">
-        <FileEntry name=".bashrc" description="Bash configuration" />
-        <FileEntry name=".profile" description="User profile" />
-        <DirectoryEntry name="Documents" description="User documents" />
-        <DirectoryEntry name="Downloads" description="Downloaded files" />
-      </DirectoryEntry>
-      <DirectoryEntry name="bob" description="Bob's home directory" />
-    </DirectoryEntry>
-    <DirectoryEntry name="usr" description="User programs" :expanded="false">
-      <DirectoryEntry name="bin" description="User binaries" :expanded="false">
-        <FileEntry name="gcc" description="GNU Compiler Collection" />
-        <FileEntry name="python3" description="Python interpreter" />
-        <FileEntry name="git" description="Version control" />
-        <FileEntry name="vim" description="Text editor" />
-      </DirectoryEntry>
-      <DirectoryEntry name="lib" description="Libraries" :expanded="false">
-        <FileEntry name="libc.so.6" description="C standard library" />
-        <FileEntry name="libssl.so.1.1" description="SSL library" />
-        <DirectoryEntry name="python3.8" description="Python libraries">
-          <FileEntry name="os.py" description="Operating system interface" />
-          <FileEntry name="sys.py" description="System parameters" />
+<Row>
+  <Column>
+  Some things to look for.
+
+  <v-clicks depth="2">
+
+  - Where are user files (documents, downloads, etc)?
+  - Where are the executables?
+  - Where are libraries like libc?
+  - Where's the list of users/groups?
+  - Where are password hashes?
+  - Where might I find other key material?
+
+  </v-clicks>
+
+  </Column>
+  <Column>
+    <ScrollableView height="360px">
+      <DirectoryEntry name="/" description="Root directory" :expanded="true">
+        <DirectoryEntry name="bin" description="Essential binaries" :expanded="false">
+          <FileEntry name="bash" description="Bourne Again Shell" />
+          <FileEntry name="ls" description="List directory contents" />
+          <FileEntry name="cp" description="Copy files" />
+          <FileEntry name="mv" description="Move/rename files" />
+          <FileEntry name="rm" description="Remove files" />
         </DirectoryEntry>
-      </DirectoryEntry>
-      <DirectoryEntry name="include" description="Header files" :expanded="false">
-        <FileEntry name="stdio.h" description="Standard I/O" />
-        <FileEntry name="stdlib.h" description="Standard library" />
-        <FileEntry name="string.h" description="String functions" />
-      </DirectoryEntry>
-      <DirectoryEntry name="share" description="Shared data" :expanded="false">
-        <DirectoryEntry name="man" description="Manual pages">
-          <FileEntry name="man1" description="User commands" />
-          <FileEntry name="man2" description="System calls" />
-          <FileEntry name="man3" description="Library functions" />
+        <DirectoryEntry name="sbin" description="System binaries" :expanded="false">
+          <FileEntry name="init" description="System initialization" />
+          <FileEntry name="mount" description="Mount filesystems" />
+          <FileEntry name="umount" description="Unmount filesystems" />
+          <FileEntry name="ifconfig" description="Network interface config" />
         </DirectoryEntry>
+        <DirectoryEntry name="etc" description="Configuration files" :expanded="false">
+          <FileEntry name="passwd" description="User accounts" />
+          <FileEntry name="shadow" description="Encrypted passwords" />
+          <FileEntry name="hosts" description="Hostname resolution" />
+          <FileEntry name="fstab" description="Filesystem table" />
+          <DirectoryEntry name="systemd" description="System service configs">
+            <FileEntry name="system.conf" description="System configuration" />
+            <FileEntry name="user.conf" description="User configuration" />
+          </DirectoryEntry>
+        </DirectoryEntry>
+        <DirectoryEntry name="home" description="User directories" :expanded="false">
+          <DirectoryEntry name="alice" description="Alice's home directory">
+            <FileEntry name=".bashrc" description="Bash configuration" />
+            <FileEntry name=".profile" description="User profile" />
+            <DirectoryEntry name="Documents" description="User documents" />
+            <DirectoryEntry name="Downloads" description="Downloaded files" />
+          </DirectoryEntry>
+          <DirectoryEntry name="bob" description="Bob's home directory" />
+        </DirectoryEntry>
+        <DirectoryEntry name="usr" description="User programs" :expanded="false">
+          <DirectoryEntry name="bin" description="User binaries" :expanded="false">
+            <FileEntry name="gcc" description="GNU Compiler Collection" />
+            <FileEntry name="python3" description="Python interpreter" />
+            <FileEntry name="git" description="Version control" />
+            <FileEntry name="vim" description="Text editor" />
+          </DirectoryEntry>
+          <DirectoryEntry name="lib" description="Libraries" :expanded="false">
+            <FileEntry name="libc.so.6" description="C standard library" />
+            <FileEntry name="libssl.so.1.1" description="SSL library" />
+            <DirectoryEntry name="python3.8" description="Python libraries">
+              <FileEntry name="os.py" description="Operating system interface" />
+              <FileEntry name="sys.py" description="System parameters" />
+            </DirectoryEntry>
+          </DirectoryEntry>
+          <DirectoryEntry name="include" description="Header files" :expanded="false">
+            <FileEntry name="stdio.h" description="Standard I/O" />
+            <FileEntry name="stdlib.h" description="Standard library" />
+            <FileEntry name="string.h" description="String functions" />
+          </DirectoryEntry>
+          <DirectoryEntry name="share" description="Shared data" :expanded="false">
+            <DirectoryEntry name="man" description="Manual pages">
+              <FileEntry name="man1" description="User commands" />
+              <FileEntry name="man2" description="System calls" />
+              <FileEntry name="man3" description="Library functions" />
+            </DirectoryEntry>
+          </DirectoryEntry>
+        </DirectoryEntry>
+        <DirectoryEntry name="var" description="Variable data" :expanded="false">
+          <DirectoryEntry name="log" description="Log files" :expanded="false">
+            <FileEntry name="syslog" description="System log" />
+            <FileEntry name="auth.log" description="Authentication log" />
+            <FileEntry name="kern.log" description="Kernel log" />
+          </DirectoryEntry>
+          <DirectoryEntry name="cache" description="Cache files" />
+          <DirectoryEntry name="tmp" description="Temporary files" />
+          <DirectoryEntry name="spool" description="Spool directories" />
+        </DirectoryEntry>
+        <DirectoryEntry name="tmp" description="Temporary files" />
+        <DirectoryEntry name="opt" description="Optional software" :expanded="false">
+          <DirectoryEntry name="google" description="Google software">
+            <DirectoryEntry name="chrome" description="Chrome browser" />
+          </DirectoryEntry>
+          <DirectoryEntry name="microsoft" description="Microsoft software">
+            <DirectoryEntry name="vscode" description="Visual Studio Code" />
+          </DirectoryEntry>
+        </DirectoryEntry>
+        <DirectoryEntry name="proc" description="Process information" :expanded="false">
+          <FileEntry name="cpuinfo" description="CPU information" />
+          <FileEntry name="meminfo" description="Memory information" />
+          <FileEntry name="version" description="Kernel version" />
+          <DirectoryEntry name="1" description="Process 1 (init)">
+            <FileEntry name="cmdline" description="Command line" />
+            <FileEntry name="status" description="Process status" />
+            <FileEntry name="fd" description="File descriptors" />
+          </DirectoryEntry>
+        </DirectoryEntry>
+        <DirectoryEntry name="sys" description="System information" :expanded="false">
+          <DirectoryEntry name="kernel" description="Kernel parameters">
+            <FileEntry name="version" description="Kernel version" />
+            <FileEntry name="hostname" description="System hostname" />
+          </DirectoryEntry>
+          <DirectoryEntry name="devices" description="Device information" />
+          <DirectoryEntry name="fs" description="Filesystem information" />
+        </DirectoryEntry>
+        <DirectoryEntry name="dev" description="Device files" :expanded="false">
+          <FileEntry name="null" description="Null device" />
+          <FileEntry name="zero" description="Zero device" />
+          <FileEntry name="random" description="Random number generator" />
+          <FileEntry name="urandom" description="Non-blocking random" />
+          <FileEntry name="tty" description="Terminal device" />
+          <FileEntry name="sda" description="First SATA disk" />
+          <FileEntry name="sda1" description="First partition" />
+        </DirectoryEntry>
+        <DirectoryEntry name="boot" description="Boot files" :expanded="false">
+          <FileEntry name="vmlinuz" description="Kernel image" />
+          <FileEntry name="initrd.img" description="Initial RAM disk" />
+          <FileEntry name="grub" description="GRUB bootloader" />
+        </DirectoryEntry>
+        <DirectoryEntry name="lib" description="Essential libraries" :expanded="false">
+          <FileEntry name="ld-linux-x86-64.so.2" description="Dynamic linker" />
+          <FileEntry name="libc.so.6" description="C standard library" />
+          <FileEntry name="libm.so.6" description="Math library" />
+        </DirectoryEntry>
+        <DirectoryEntry name="mnt" description="Mount points" />
+        <DirectoryEntry name="media" description="Removable media" />
+        <DirectoryEntry name="run" description="Runtime data" />
       </DirectoryEntry>
-    </DirectoryEntry>
-    <DirectoryEntry name="var" description="Variable data" :expanded="false">
-      <DirectoryEntry name="log" description="Log files" :expanded="false">
-        <FileEntry name="syslog" description="System log" />
-        <FileEntry name="auth.log" description="Authentication log" />
-        <FileEntry name="kern.log" description="Kernel log" />
-      </DirectoryEntry>
-      <DirectoryEntry name="cache" description="Cache files" />
-      <DirectoryEntry name="tmp" description="Temporary files" />
-      <DirectoryEntry name="spool" description="Spool directories" />
-    </DirectoryEntry>
-    <DirectoryEntry name="tmp" description="Temporary files" />
-    <DirectoryEntry name="opt" description="Optional software" :expanded="false">
-      <DirectoryEntry name="google" description="Google software">
-        <DirectoryEntry name="chrome" description="Chrome browser" />
-      </DirectoryEntry>
-      <DirectoryEntry name="microsoft" description="Microsoft software">
-        <DirectoryEntry name="vscode" description="Visual Studio Code" />
-      </DirectoryEntry>
-    </DirectoryEntry>
-    <DirectoryEntry name="proc" description="Process information" :expanded="false">
-      <FileEntry name="cpuinfo" description="CPU information" />
-      <FileEntry name="meminfo" description="Memory information" />
-      <FileEntry name="version" description="Kernel version" />
-      <DirectoryEntry name="1" description="Process 1 (init)">
-        <FileEntry name="cmdline" description="Command line" />
-        <FileEntry name="status" description="Process status" />
-        <FileEntry name="fd" description="File descriptors" />
-      </DirectoryEntry>
-    </DirectoryEntry>
-    <DirectoryEntry name="sys" description="System information" :expanded="false">
-      <DirectoryEntry name="kernel" description="Kernel parameters">
-        <FileEntry name="version" description="Kernel version" />
-        <FileEntry name="hostname" description="System hostname" />
-      </DirectoryEntry>
-      <DirectoryEntry name="devices" description="Device information" />
-      <DirectoryEntry name="fs" description="Filesystem information" />
-    </DirectoryEntry>
-    <DirectoryEntry name="dev" description="Device files" :expanded="false">
-      <FileEntry name="null" description="Null device" />
-      <FileEntry name="zero" description="Zero device" />
-      <FileEntry name="random" description="Random number generator" />
-      <FileEntry name="urandom" description="Non-blocking random" />
-      <FileEntry name="tty" description="Terminal device" />
-      <FileEntry name="sda" description="First SATA disk" />
-      <FileEntry name="sda1" description="First partition" />
-    </DirectoryEntry>
-    <DirectoryEntry name="boot" description="Boot files" :expanded="false">
-      <FileEntry name="vmlinuz" description="Kernel image" />
-      <FileEntry name="initrd.img" description="Initial RAM disk" />
-      <FileEntry name="grub" description="GRUB bootloader" />
-    </DirectoryEntry>
-    <DirectoryEntry name="lib" description="Essential libraries" :expanded="false">
-      <FileEntry name="ld-linux-x86-64.so.2" description="Dynamic linker" />
-      <FileEntry name="libc.so.6" description="C standard library" />
-      <FileEntry name="libm.so.6" description="Math library" />
-    </DirectoryEntry>
-    <DirectoryEntry name="mnt" description="Mount points" />
-    <DirectoryEntry name="media" description="Removable media" />
-    <DirectoryEntry name="run" description="Runtime data" />
-  </DirectoryEntry>
-</ScrollableView>
+    </ScrollableView>
+  </Column>
+</Row>
 
 ---
-currentNav: "Reverse Engineering"
-layout: image-right
-image: /images/marcus-wired.png
+currentNav: "Linux"
 ---
 
-# In The News: Malware Analysis
+# System Versions
 
-In May of 2017, the WannaCry ransomware had infected an estimated 300,000 computers worldwide, encrypting user files and demanding a ransom payment.
+One critical piece of information for most platforms is its *version*.
 
-British researcher Marcus Hutchins:
+Operating system version.
 
-- Reverse engineered the worm's artifacts
-- Spotted a hard-coded domain that functioned as a kill switch when registered
-- Registered the domain, halting the spread
-- Arrested for writing malware in his free time
+```
+$ cat /etc/issue
+Ubuntu 24.04.1 LTS \n \l
+```
 
----
-currentNav: "Reverse Engineering"
-layout: image-right-2
-image1: /images/playstation.png
-image2: /images/hotz.png
----
+```
+$ cat /etc/os-release
+NAME="Ubuntu"
+VERSION="24.04.1 LTS (Noble Numbat)"
+ID=ubuntu
+ID_LIKE=debian
+PRETTY_NAME="Ubuntu 24.04.1 LTS"
+VERSION_ID="24.04"
+```
 
-# In The News: Interoperability
+Kernel version.
 
-Console developer go to great lengths to prevent users from running custom software, primarily to prevent piracy.
+```
+$ cat /proc/version
+Linux version 5.9.0-41-generic (buildd@...) (gcc (Ubuntu 13.3.0-6ubuntu2) 13.3.0) #41-Ubuntu SMP PREEMPT_DYNAMIC Fri Aug 16 12:34:56 UTC 2025
+```
 
-In December of 2009, George Hotz:
-
-- Began a multi-year project to exploit the Playstation 3
-- Found exploits that granted him hypervisor-level code execution
-- Published the exploits and a private key
-- Sony applied for a temporary restraining order
-
----
-currentNav: "Reverse Engineering"
-layout: image-right-2
-image1: /images/nso.png
-image2: /images/exploit.png
----
-
-# In The News: Exploitation
-
-Google's Project Zero has some of the best public writeups on exploitation in the wild. One example is their writeup on ForcedEntry, a zero-click iPhone exploit that triggers an integer overflow in Apple's Core Graphics library. The exploit is part of the Pegasus spyware developed by the NSO Group, an Israeli security firm.
-
-Reverse engineering was used by multiple parties:
-
-- NSO Group reversed iPhone internals to find the exploit
-- Security researchers reversed the exploit to patch the vulnerability
-
-Exploit development continues to be a high demand skill. By the end of this class you'll be able to understand how these chains work.
+What [can I do](https://www.exploit-db.com/exploits/50808) with this information?
 
 ---
-currentNav: "Reverse Engineering"
+currentNav: "Linux"
 ---
 
-# Ethics
+# Application Versions
 
-- Do not attempt to use what you learn in this class to commit illegal acts.
-- The techniques taught in this course can be used for multiple purposes
-- Use them in a way that complies with U.S. law and university policy
+What are some ways we might get an application's version?
+
+<v-click>
+<b>For a Binary File</b>
+
+```
+$ strings launchctl | grep -i "version "
+Darwin Bootstrapper Control Interface Version 7.0.0: Fri Jul 11 20:01:57 PDT 2025; root:libxpc_executables-2894.140.12~26/launchctl/RELEASE_ARM64E
+[%s]: entitlements blob has unexpected version %lld
+```
+
+```
+$ strings bash | grep -i version
+GNU bash, version %s-(%s)
+display-shell-version
+    version, type `enable -n test'.  On systems supporting dynamic
+BASH_VERSION
+Version information for this Bash.
+The type of CPU this version of Bash is running under.
+```
+
+**Configuration Files**
+
+- Sometimes have useful information
+- No rules here
+
+</v-click>
 
 ---
 currentNav: "Reverse Engineering"
