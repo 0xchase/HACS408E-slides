@@ -84,16 +84,6 @@ $ xxd main | head
 currentNav: "Executables"
 ---
 
-# Building an Executable
-
-Executables are usually built using a compiler like `gcc`, `clang`, `msvc`, `rustc`, etc., which generate machine code from source code.
-
-Show three stages.
-
----
-currentNav: "Executables"
----
-
 # Executable Format Header
 
 Different platforms support different executable file formats. These formats begin with a header that specifies the entry point, function locations, and other metadata.
@@ -388,111 +378,9 @@ currentNav: "Loading"
   </Column>
   <Column :width="'10%'">
     <div class="architecture-container">
-      <ArchitectureLayerLabel label="Memory Layout" labelWidth="150px">
-        <ArchitectureLayer>
-          <ArchitectureGrid :columns="1">
-            <ArchitectureItem text="Stack (grows down)" color="#ef4444" width="100%" />
-            <ArchitectureItem text="Heap (grows up)" color="#f59e0b" width="100%" />
-            <ArchitectureItem text="BSS (.bss)" color="#8b5cf6" width="100%" />
-            <ArchitectureItem text="Data (.data)" color="#f59e0b" width="100%" />
-            <ArchitectureItem text="Read-only (.rodata)" color="#6b7280" width="100%" />
-            <ArchitectureItem text="Text (.text)" color="#10b981" width="100%" />
-            <ArchitectureItem text="Headers (loaded)" color="#3b82f6" width="100%" />
-          </ArchitectureGrid>
-        </ArchitectureLayer>
-      </ArchitectureLayerLabel>
     </div>
   </Column>
 </Row>
-
----
-currentNav: "Linking"
----
-
-# Linking an Executable
-
-- Static and dynamic linking
-
----
-currentNav: "Loading"
----
-
-# Loading an executable
-
-Operating system will validate the file, verify execution permissions, allocate virtual memory for the process, parse the headers, map the segments into memory, load dynamic libraries, setup stack, initialize the process, and jump to the entry point.
-
-<Row>
-  <Column>
-    <h3>Unloaded Executable (Disk)</h3>
-    <div class="architecture-container">
-      <ArchitectureLayerLabel label="ELF Structure" labelWidth="150px">
-        <ArchitectureLayer>
-          <ArchitectureGrid>
-            <ArchitectureItem text="ELF Header" color="#3b82f6" />
-            <ArchitectureItem text="Program Headers" color="#3b82f6" />
-            <ArchitectureItem text="Section Headers" color="#3b82f6" />
-          </ArchitectureGrid>
-        </ArchitectureLayer>
-      </ArchitectureLayerLabel>
-      <ArchitectureLayerLabel label="File Sections" labelWidth="150px">
-        <ArchitectureLayer>
-          <ArchitectureGrid>
-            <ArchitectureItem text=".text" color="#8b5cf6" />
-            <ArchitectureItem text=".data" color="#8b5cf6" />
-            <ArchitectureItem text=".bss" color="#8b5cf6" />
-            <ArchitectureItem text=".rodata" color="#8b5cf6" />
-            <ArchitectureItem text=".symtab" color="#8b5cf6" />
-            <ArchitectureItem text=".debug" color="#8b5cf6" />
-          </ArchitectureGrid>
-        </ArchitectureLayer>
-      </ArchitectureLayerLabel>
-    </div>
-  </Column>
-  <Column>
-    <h3>Loaded Executable (Memory)</h3>
-    <div class="architecture-container">
-      <ArchitectureLayerLabel label="Memory Segments" labelWidth="150px">
-        <ArchitectureLayer>
-          <ArchitectureGrid>
-            <ArchitectureItem text="Text Segment" color="#10b981" />
-            <ArchitectureItem text="Data Segment" color="#10b981" />
-            <ArchitectureItem text="BSS Segment" color="#10b981" />
-            <ArchitectureItem text="Heap" color="#10b981" />
-            <ArchitectureItem text="Stack" color="#10b981" />
-          </ArchitectureGrid>
-        </ArchitectureLayer>
-      </ArchitectureLayerLabel>
-      <ArchitectureLayerLabel label="Key Differences" labelWidth="150px">
-        <ArchitectureLayer>
-          <ArchitectureGrid>
-            <ArchitectureItem text="Sections: File organization" color="#ef4444" />
-            <ArchitectureItem text="Segments: Memory layout" color="#ef4444" />
-            <ArchitectureItem text="Multiple sections → One segment" color="#ef4444" />
-            <ArchitectureItem text="Alignment requirements" color="#ef4444" />
-          </ArchitectureGrid>
-        </ArchitectureLayer>
-      </ArchitectureLayerLabel>
-    </div>
-  </Column>
-</Row>
-
-<style>
-.architecture-container {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  width: 100%;
-  padding: 0.5rem;
-}
-
-h3 {
-  text-align: center;
-  margin-bottom: 1rem;
-  color: #e5e7eb;
-  font-size: 1.25rem;
-  font-weight: 600;
-}
-</style>
 
 ---
 currentNav: "Lab 1"
@@ -709,7 +597,7 @@ currentNav: "Lab 2"
 
 ## Lab 2
 
-[https://hacs408e.umd.edu/schedule/week-02/lab-2/](https://hacs408e.umd.edu/schedule/week-02/lab-2/)
+[https://hacs408e.umd.edu/schedule/week-03/lab-2/](https://hacs408e.umd.edu/schedule/week-02/lab-2/)
 
 <CountdownTimer :destHour="19" :destMinute="40" />
 
