@@ -1,11 +1,15 @@
 <template>
-  <div class="column-container">
+  <div class="column-container" :style="width ? `width: ${width}` : ''">
     <slot />
   </div>
 </template>
 
 <script setup lang="ts">
-// Column component for vertical layout
+interface Props {
+  width?: string
+}
+
+defineProps<Props>()
 </script>
 
 <style scoped>
@@ -23,5 +27,10 @@
   flex: 1 1 0; /* grow, shrink, basis */
   min-width: 0; /* Allow shrinking below content size */
   width: auto; /* Override width to let flex handle sizing */
+}
+
+/* When width is explicitly set, override flex behavior */
+.row-container > .column-container[style*="width"] {
+  flex: none;
 }
 </style>

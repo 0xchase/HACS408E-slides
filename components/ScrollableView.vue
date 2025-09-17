@@ -17,7 +17,6 @@ defineProps<{
   background-color: rgb(var(--slidev-theme-secondary-bg-light));
   border: 1px solid rgb(var(--slidev-theme-secondary-bg-light-outline));
   border-radius: 0.5rem;
-  padding: 1rem;
   margin: 1rem 0;
   overflow-y: auto;
   overflow-x: hidden;
