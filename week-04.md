@@ -5,8 +5,6 @@ description: Assembly, calling conventions, and dynamic analysis
 buttonText: Start Week 4
 imageText: Week 4
 slides:
-  - Review
-  - Executables
   - Assembly
   - System V
   - Loading
@@ -29,7 +27,7 @@ e966 c004 d7d1 d16b 024f 5805 ff7c b47c
 ```
 
 ---
-currentNav: "Review"
+currentNav: "Assembly"
 ---
 
 # Assembly Review
@@ -43,7 +41,35 @@ Low-level programming language that is translated into the the architecture's by
 - MIPS: Used mostly by IOT devices
 
 ---
-currentNav: "Review"
+currentNav: "Assembly"
+---
+
+# Registers
+
+- General purpose: `rax`, `rbx`, `rcx`, `rdx`, `rsi`, `rdi`, `rsp`, `rbp`, `r8`-`r15`
+- Special purpose: program counter, counters, flags, floating point arithmetic, etc.
+
+![Registers](/images/registers.svg)
+
+---
+currentNav: "Assembly"
+---
+
+# General Purpose Registers
+
+These registers may be used for any purpose but generally follow these conventions.
+
+| Name | 64-bit | 32-bit | 16-bit | Conventional Use |
+|------|--------|--------|--------|-----|
+| Accumulator | `rax` | `eax` | `ax` | Used for the return value of functions |
+| Base | `rbx` | `ebx` | `bx` | Used as a pointer to data |
+| Counter | `rcx` | `ecx` | `cx` | Used in loops and shift operations |
+| Data | `rdx` | `edx` | `dx` | Used in I/O operations and arithmetic |
+| Stack Pointer | `rsp` | `esp` | `sp` | Points to the top of the stack |
+| Base Pointer | `rbp` | `ebp` | `bp` | Points to the base of the current stack frame |
+
+---
+currentNav: "Assembly"
 ---
 
 # Moving Data Around
@@ -76,7 +102,7 @@ mov eax, [arr + esi*4 + 0]
 ```
 
 ---
-currentNav: "Review"
+currentNav: "Assembly"
 ---
 
 # Moving Data Around
@@ -98,32 +124,146 @@ lea eax, [eax + edx*4] ;can be thought of as
 currentNav: "Assembly"
 ---
 
-# Registers
+# Comparisons and Branching
 
-- General purpose: `rax`, `rbx`, `rcx`, `rdx`, `rsi`, `rdi`, `rsp`, `rbp`, `r8`-`r15`
-- Special purpose: counters, flags, floating point arithmetic, etc.
-- Can access different portions of the same register
+Assembly provides instructions for comparing values and controlling program flow based on the results.
 
-![Registers](/images/registers.svg)
+**Comparison Instructions**
+
+```asm
+cmp eax, ebx    ;compare eax with ebx (sets flags)
+test eax, eax   ;bitwise AND of eax with itself (sets flags)
+```
+
+**Conditional Jumps**
+
+```asm
+je addr  ; or jz  -- if zero flag is set (equal)
+jne addr ; or jnz -- if zero flag is not set (not equal)
+jg addr  ; or ja  -- if greater - signed or unsigned 
+jl addr  ; or jb  -- if less    - signed or unsigned
+jge addr ;        -- if greater or equal to
+jle addr ;        -- if less or equal to
+```
+
+**Common flags used by comparisons**
+
+```asm
+CF (Carry Flag)    -- used to indicate carry in arithmetic operation                    
+ZF (Zero Flag)     -- if a value is zero or comparison equals 0
+SF (Sign Flag)     -- if negative
+```
 
 ---
 currentNav: "Assembly"
 ---
 
-# General Purpose Registers
+# Assembly Practice
 
-These registers may be used for any purpose but generally follow these conventions.
+The following examples are adapted from this book of assembly riddles.
 
-| Name | 64-bit | 32-bit | 16-bit | Use |
-|------|--------|--------|--------|-----|
-| Accumulator | `rax` | `eax` | `ax` | Used for the return value of functions |
-| Base | `rbx` | `ebx` | `bx` | Used as a pointer to data |
-| Counter | `rcx` | `ecx` | `cx` | Used in loops and shift operations |
-| Data | `rdx` | `edx` | `dx` | Used in I/O operations and arithmetic |
-| Source Index | `rsi` | `esi` | `si` | Points to source data in string operations |
-| Destination Index | `rdi` | `edi` | `di` | Points to destination in string operations |
-| Stack Pointer | `rsp` | `esp` | `sp` | Points to the top of the stack |
-| Base Pointer | `rbp` | `ebp` | `bp` | Points to the base of the current stack frame |
+<Row>
+  <Column>
+    <img src="/images/xchg_cover.png" style="height: 380px; width: 100%; object-fit: cover;"></img>
+  </Column>
+  <Column>
+    <img src="/images/xchg_contents.png" style="height: 380px; width: 100%; object-fit: cover;"></img>
+  </Column>
+</Row>
+
+---
+currentNav: "Assembly"
+---
+
+# Assembly Practice 1
+
+Let's walk through each line.
+
+```asm {*|1|2|3|4|5-6|*}
+mov      rdx,0
+xor      eax,eax
+and      esi,0
+sub      edi,edi
+push     0
+pop      rbp
+```
+
+<v-click>
+
+Different ways of setting a register to zero.
+
+</v-click>
+
+---
+currentNav: "Assembly"
+---
+
+# Assembly Practice 2
+
+What value ends up in `rax` after this code executes?
+
+```asm {*|1-2|3|4-5|7|8|12|*}
+main:
+  mov rax, 0x100 
+  mov rbx, 0x200
+  cmp rax, rbx
+  je equal_label
+
+  mov rax, 0x300
+  jmp end_label
+
+equal_label:
+    mov rax, 0x400
+end_label:
+```
+
+<v-click>
+
+<code>rax = 0x300</code>
+
+</v-click>
+
+---
+currentNav: "Assembly"
+---
+
+# Assembly Practice 3
+
+What value ends up in `rax` after this code executes?
+
+```asm {*|1|2|3|4-6|7|8|9|10|*}
+mov rax, 0x0
+mov rbx, 0x1
+mov rcx, 0x3
+loop_start:
+    test rcx, rcx
+    jle  loop_end
+    xchg rax, rbx
+    add  rax, rbx
+    dec  rcx
+    jg   loop_start
+loop_end:
+```
+
+<v-click>
+<br>
+Computes Fibonacci numbers by swapping <code>rax</code> and <code>rbx</code> each loop, adding them to produce the next term in <code>rax</code>, decrementing <code>rcx</code> until zero. The loop executes three times, so <code>rax</code> = 1, 1, 2.
+</v-click>
+
+---
+currentNav: "System V"
+---
+
+# Application Binary Interface (ABI)
+
+An ABI defines how compiled code interacts at runtime. This includes:
+
+- How general purpose registers are used
+- Calling conventions
+- Data types sizes and layouts
+- Symbols and linkage rules
+- System call interfaces
+- etc
 
 ---
 currentNav: "System V"
@@ -179,43 +319,21 @@ currentNav: "System V"
 
 Comparison of 32-bit and 64-bit calling conventions.
 
-<Row>
-  <Column>
-    <h3>cdecl (32-bit)</h3>
-    <p><strong>Arguments:</strong> All passed on the stack (right-to-left)</p>
-    <ul>
-      <li>Stack: <code>[arg3][arg2][arg1][return_addr]</code></li>
-      <li>Caller cleans up stack</li>
-    </ul>
-    <p><strong>Return Values:</strong></p>
-    <ul>
-      <li><code>eax</code> - Integer return value</li>
-      <li><code>edx:eax</code> - 64-bit return value</li>
-    </ul>
-  </Column>
-  <Column>
-    <h3>System V (64-bit)</h3>
-    <p><strong>Arguments:</strong> First 6 in registers, rest on stack</p>
-    <ul>
-      <li>Registers: <code>rdi, rsi, rdx, rcx, r8, r9</code></li>
-      <li>Stack: Additional arguments</li>
-    </ul>
-    <p><strong>Return Values:</strong></p>
-    <ul>
-      <li><code>rax</code> - Integer return value</li>
-      <li><code>rdx:rax</code> - 128-bit return value</li>
-      <li><code>xmm0</code> - Floating point return value</li>
-    </ul>
-  </Column>
-</Row>
+| Aspect | cdecl (32-bit) | System V (64-bit) |
+|--------|----------------|-------------------|
+| **Arguments** | All on stack (right-to-left) | First 6 in registers, others on stack |
+| **Return Values** | Integer: `eax`<br>64-bit: `edx:eax`<br>128-bit: Not supported<br>Floating point: Not supported | Integer: `rax`<br>64-bit: `rdx:rax`<br>128-bit: `rdx:rax`<br>Floating point: `xmm0` |
 
-*Why might newer calling conventions use registers instead of the stack for passing arguments?*
+<v-click>
+<br>
+<i>Why might newer calling conventions use registers instead of the stack for passing arguments?</i>
+</v-click>
 
 ---
 currentNav: "Assembly"
 ---
 
-# Registers across function calls
+# Register Volatility
 
 By convention, some registers are expected to be preserved across function calls and some are not.
 
