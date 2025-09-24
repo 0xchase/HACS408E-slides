@@ -377,12 +377,11 @@ Last week we talked about the sections and segments. Here's a broader view of th
 <Row>
   <Column>
     <ul>
-      <li><strong>Virtual Memory</strong> - Executable code</li>
-      <li><strong>Data Segment</strong> - Initialized global/static variables</li>
-      <li><strong>BSS Segment</strong> - Uninitialized global/static variables</li>
-      <li><strong>Heap</strong> - Dynamic memory allocation (malloc/free)</li>
-      <li><strong>Stack</strong> - Function calls, local variables, return addresses</li>
-      <li><strong>Kernel Space</strong> - Operating system code and data</li>
+      <li><strong>Kernel</strong> - Usually situated at a high address</li>
+      <li><strong>Stack</strong> - Grows downward</li>
+      <li><strong>Heap</strong> - Managed by allocator but roughly grows upward</li>
+      <li><strong>Data</strong> - At a low address</li>
+      <li><strong>Code</strong> - At a low address</li>
     </ul>
   </Column>
   <Column>
