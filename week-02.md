@@ -170,7 +170,6 @@ Most operating systems follow this general architecture.
 }
 </style>
 
-
 ---
 currentNav: "Platforms"
 ---

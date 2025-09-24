@@ -8,8 +8,9 @@ slides:
   - Assembly
   - System V
   - Loading
-  - Dynamic Analysis
+  - Debugging
   - Lab 1
+  - Tracing
   - Lab 2
   - Homework
 ---
@@ -392,12 +393,12 @@ Last week we talked about the sections and segments. Here's a broader view of th
 </Row>
 
 ---
-currentNav: "Dynamic Analysis"
+currentNav: "Debugging"
 ---
 
 # Dynamic Analysis
 
-Last week we introduced static analysis. This can be laborious for large binaries, so it's useful to analyze a program when it's running. GDB is one strategy.
+Last week we introduced static analysis. This can be laborious for large binaries, so it's useful to analyze a program when it's running. Debugging with GDB is one strategy.
 
 <ScrollableView height="380px">
 <table>
@@ -485,7 +486,7 @@ Last week we introduced static analysis. This can be laborious for large binarie
 </ScrollableView>
 
 ---
-currentNav: "Dynamic Analysis"
+currentNav: "Debugging"
 ---
 
 # GDB Commands
@@ -513,7 +514,7 @@ Do we remember GDB commands?
    </v-click>
 
 ---
-currentNav: "Dynamic Analysis"
+currentNav: "Debugging"
 ---
 
 # GDB Commands
@@ -541,7 +542,7 @@ Do we remember GDB commands?
    </v-click>
 
 ---
-currentNav: "Dynamic Analysis"
+currentNav: "Debugging"
 ---
 
 # GEF Plugin
@@ -565,11 +566,109 @@ Using GDB.
 <CountdownTimer :destHour="18" :destMinute="15" />
 
 ---
-currentNav: "Dynamic Analysis"
+currentNav: "Tracing"
 ---
 
-- Executables and libraries
-- Strace and ltrace
+# Tracing
+
+Debugging is an appropriate solution for fine-grained or precise analysis. For faster results it's sometimes useful to trace only specific aspects of your program's behavior.
+
+- Data written to `stdout`/`stderr`
+- Changes to the system file system
+- Library function calls
+- System calls
+
+---
+currentNav: "Tracing"
+---
+
+# Library Loading
+
+Processes may load dynamic libraries that provide shared functionality. 
+
+<div class="architecture-container">
+  <ArchitectureLayerLabel label="User Applications" labelWidth="150px">
+    <Row>
+      <ArchitectureArrow>
+        <ArchitectureItem text="Application 1" color="#3b82f6" />
+      </ArchitectureArrow>
+      <ArchitectureArrow>
+        <ArchitectureItem text="Application 2" color="#3b82f6" />
+      </ArchitectureArrow>
+      <ArchitectureArrow>
+        <ArchitectureItem text="Application 3" color="#3b82f6" />
+      </ArchitectureArrow>
+      <ArchitectureItem text="..." color="" />
+      <ArchitectureArrow>
+        <ArchitectureItem text="Application N" color="#3b82f6" />
+      </ArchitectureArrow>
+    </Row>
+  </ArchitectureLayerLabel>
+  <ArchitectureLayerLabel label="User Libraries" labelWidth="150px">
+    <Row>
+      <ArchitectureArrow>
+        <ArchitectureItem text="libselinux.so" color="#3b82f6" width="200px"/>
+      </ArchitectureArrow>
+      <ArchitectureArrow>
+        <ArchitectureItem text="libclang.so" color="#3b82f6" width="85px"/>
+      </ArchitectureArrow>
+      <ArchitectureItem text="..." color="" />
+      <ArchitectureArrow>
+        <ArchitectureItem text="lib*.so" color="#3b82f6" width="85px" />
+      </ArchitectureArrow>
+    </Row>
+    <Row>
+      <ArchitectureArrow>
+        <ArchitectureItem text="libpthread.so" color="#3b82f6" />
+      </ArchitectureArrow>
+      <ArchitectureArrow>
+        <ArchitectureItem text="libc.so" color="#3b82f6" width="200px"/>
+      </ArchitectureArrow>
+      <ArchitectureItem text="..." color="" />
+      <ArchitectureArrow>
+        <ArchitectureItem text="lib*.so" color="#3b82f6" width="85px" />
+      </ArchitectureArrow>
+    </Row>
+  </ArchitectureLayerLabel>
+  <ArchitectureBoundary userLabel="User Space" kernelLabel="Kernel Space" />
+  <ArchitectureLayerLabel label="System Call Interface" labelWidth="150px">
+    <ArchitectureLayer></ArchitectureLayer>
+  </ArchitectureLayerLabel>
+  <ArchitectureLayerLabel label="Kernel" labelWidth="150px">
+    <ArchitectureLayer>
+      <Row>
+        <ArchitectureItem text="Process Mgmt" color="#059669" />
+        <ArchitectureItem text="Memory Mgmt" color="#059669" />
+        <ArchitectureItem text="File System" color="#059669" />
+        <ArchitectureItem text="Network Stack" color="#059669" />
+        <ArchitectureItem text="Audio" color="#059669" />
+        <ArchitectureItem text="Device Mgmt" color="#059669" />
+      </Row>
+    </ArchitectureLayer>
+  </ArchitectureLayerLabel>
+</div>
+
+<style>
+.architecture-container {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0.5rem;
+}
+</style>
+
+---
+currentNav: "Tracing"
+---
+
+# Library and System Call Tracing
+
+Tracing the library and system calls within processes can provide useful information. On linux the following utilities support this.
+
+- `ltrace` tracing library calls
+- `strace` tracing system calls
 
 ---
 currentNav: "Lab 2"
@@ -587,4 +686,6 @@ currentNav: "Homework"
 
 # Homework
 
-Second homework is due next week.
+Homework 2 is due next week.
+
+Quiz 1 is next week at the beginning of class.
